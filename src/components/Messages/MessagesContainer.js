@@ -37,7 +37,7 @@ class MessagesContainer extends PureComponent {
 
 const mapStateToProps = function (state) {
   return {
-    location: state.currentUser.location,
+    location: state.currentUser ? state.currentUser.location : false,
     messages: state.messages
   }
 }

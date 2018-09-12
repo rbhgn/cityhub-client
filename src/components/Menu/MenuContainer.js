@@ -9,7 +9,7 @@ import Redirect from 'react-router-dom/Redirect';
 class MenuContainer extends PureComponent {
 
   componentDidMount() {
-    this.props.getHostData(this.props.location)
+    this.props.getHostData(this.props.location ? this.props.location : '')
   }
 
   render() {
@@ -45,10 +45,10 @@ class MenuContainer extends PureComponent {
 
 const mapStateToProps = function (state) {
   return {
-    hotelCode: state.currentUser.hotelCode,
+    hotelCode: state.currentUser ? state.currentUser.hotelCode : false,
     host: state.host,
-    currentUser: state.currentUser,
-    location: state.currentUser.location
+    currentUser: state.currentUser ? state.currentUser : false ,
+    location: state.currentUser ? state.currentUser.location : false
   }
 }
 
