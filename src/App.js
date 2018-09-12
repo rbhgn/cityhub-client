@@ -9,7 +9,7 @@ import MessagesContainer from './components/Messages/MessagesContainer'
 import EventsContainer from './components/Events/EventsContainer'
 import LandingContainer from './components/Landing/LandingContainer'
 import SocialScreenContainer from './components/SocialScreen/SocialScreenContainer';
-// import SettingsContainer from './components/Settings/SettingsContainer'
+import SettingsContainer from './components/Settings/SettingsContainer'
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
             <Route exact path="/instagram" component={ InstagramContainer }/>
             <Route exact path="/messages" component={ MessagesContainer }/>
             <Route exact path="/events" component={ EventsContainer }/>
-            {/* <Route exact path="/settings" component={ SettingsContainer }/> */}
+            <Route exact path="/settings" component={ SettingsContainer }/>
             <Route exact path="/" component={ LandingContainer }/>
 
             <Route exact path="/socialscreen/:location" component={ SocialScreenContainer }/>

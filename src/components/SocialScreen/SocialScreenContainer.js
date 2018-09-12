@@ -14,21 +14,9 @@ import SocialScreenMessagebar from './SocialScreenMessagebar'
 
 import './SocialScreen.css'
 
-const refreshData = 1
-const refreshItem = 15
-const eventInterval = 10
-const refreshMessage = 8
 class SocialScreenContainer extends PureComponent {
   state = {location : this.props.match.params.location, counter: 0, messagesIndex: 0, currentMessage: ''}
   
-  getNewData = () => {
-    this.props.getInstagramScreen(this.state.location)
-    this.props.getEventsScreen(this.state.location)
-    this.props.getMessagesScreen(this.state.location)
-    this.props.getHostData(this.state.location)
-
-  }
-
   getCurrentItem = (type) => {
     if (type === 'event' && this.props.events.length > 0) {
       const randomIndex = Math.floor(Math.random() * this.props.events.length)
@@ -39,20 +27,39 @@ class SocialScreenContainer extends PureComponent {
     }
 
   }
+
+  getNewData = () => {
+    const refreshData = this.props.settings.refreshData ? this.props.settings.refreshData : 1
+    this.props.getSettingsScreen(this.state.location)
+    this.props.getInstagramScreen(this.state.location)
+    this.props.getEventsScreen(this.state.location)
+    this.props.getMessagesScreen(this.state.location)
+    this.props.getHostData(this.state.location)
+    setTimeout(this.getNewData, refreshData * 1000 * 60)
+  }
+
   setCurrentItem = () => {
+    const eventInterval = this.props.settings.eventInterval ? this.props.settings.eventInterval : 10
+    const refreshItem = this.props.settings.refreshItem ? this.props.settings.refreshItem : 8
     this.state.counter === 0 && this.props.events.length > 0 ? this.getCurrentItem('event') : this.getCurrentItem('instagram')
     this.state.counter >= eventInterval ? this.setState({counter: 0}) : this.setState((prevState) => ({counter: prevState.counter + 1}))
+    setTimeout(this.setCurrentItem, refreshItem * 1000)
   } 
 
   setCurrentMessage = () => {
+    const messageBarInterval = this.props.settings.messageBarInterval ? this.props.settings.messageBarInterval : 8
     !this.props.messages.length ? this.setState({currentMessage: ''}) : this.setState({currentMessage: this.props.messages[this.state.messagesIndex].message})
     this.state.messagesIndex >= this.props.messages.length - 1 ? this.setState({messagesIndex: 0}) : this.setState((prevState) => ({messagesIndex: prevState.messagesIndex + 1}))
+    setTimeout(this.setCurrentMessage, messageBarInterval * 1000)
   }
+  setMessageBarInterval = () => {
+    return this.props.settings.messageBarInterval ? this.props.settings.messageBarInterval : 8
+  }
+
   componentDidMount() {
     this.getNewData()
-    setInterval(() => this.getNewData(), refreshData * 60 * 1000)
-    setInterval(() => this.setCurrentItem(), refreshItem * 1000)
-    setInterval(() => this.setCurrentMessage(), refreshMessage * 1000)
+    this.setCurrentItem()
+    this.setCurrentMessage()
   }
 
   render() {

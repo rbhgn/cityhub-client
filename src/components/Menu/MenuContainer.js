@@ -26,7 +26,7 @@ class MenuContainer extends PureComponent {
           <div className="menu_item"><Link to='/instagram'>Instagram</Link></div>
           <div className="menu_item"><Link to='/events'>Events</Link></div>
           <div className="menu_item"><Link to='/messages'>Messages</Link></div>
-          {/* <div className="menu_item"><Link to='/settings'>Settings</Link></div> */}
+          <div className="menu_item"><Link to='/settings'>Settings</Link></div>
           <div className="menu_item"><Link to={ `/socialscreen/${this.props.currentUser.location}` } target="_blank" >Preview</Link></div>
         </div>
         <div className="menu_host">

@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import { getSettings, updateSettings } from '../../actions/settings'
 import MenuContainer from '../Menu/MenuContainer';
 
+import './Settings.css'
 import SettingsForm from './SettingsForm'
+
 
 class SettingsContainer extends PureComponent {
 
