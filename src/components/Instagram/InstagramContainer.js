@@ -6,7 +6,7 @@ import InstagramRender from './InstagramRender'
 import './Instagram.css'
 import MenuContainer from '../Menu/MenuContainer';
 import { getSettings } from '../../actions/settings'
-
+import ReactDOM from 'react-dom'
 class InstagramContainer extends PureComponent {
 
   handleUpdateInstagram = (id, location) => {
@@ -17,17 +17,17 @@ class InstagramContainer extends PureComponent {
     getNewInstaPics()
   }
 
+
   componentDidMount() {
     this.props.getInstagram(this.props.location)
     this.props.getSettings(this.props.location)
-
   }
 
   render() {
     return(
       <div>
       <MenuContainer />
-{    this.props.instagram && <InstagramRender data={ this.props.instagram } handleUpdateInstagram={ this.handleUpdateInstagram }handleLoadInstagram={ this.handleLoadInstagram } location={ this.props.location }/>}
+{    this.props.instagram && <InstagramRender data={ this.props.instagram } handleUpdateInstagram={ this.handleUpdateInstagram }handleLoadInstagram={ this.handleLoadInstagram } location={ this.props.location } setScroll={ this.setScroll }/>}
     </div>
     )
   }

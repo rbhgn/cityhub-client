@@ -4,11 +4,13 @@ export default class InstagramRender extends PureComponent {
   
   state = {previewId: null}
   openPreview = (e) => {
+    this.setState({yScrollPos: window.scrollY})
     this.setState({preview: this.props.data.find(x => x.id === +e.currentTarget.id)})
   }
 
   closePopup = () => {
     this.setState({preview: null})
+    setTimeout(() => window.scrollTo({top: this.state.yScrollPos,behavior: "instant"}), 10)  
   }
 
   updateInstagram = (e) => {
