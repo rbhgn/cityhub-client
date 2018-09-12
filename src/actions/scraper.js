@@ -83,7 +83,7 @@ const handleInstaByLocation = (data, hashTag, keyWord, type, location, locationI
       status: 'accepted',
       source: 'instagram',
       owner: m.node.owner.id,
-      text:  m.node.edge_media_to_caption.edges.length > 0 && m.node.edge_media_to_caption.edges[0].node.text,
+      text:  m.node.edge_media_to_caption.edges.length > 0 && m.node.edge_media_to_caption.edges[0].node.text !==  false ?  m.node.edge_media_to_caption.edges[0].node.text : ' ',
       type: type,
       mediaShortCode: m.node.shortcode,
       location: location,
@@ -99,8 +99,6 @@ const handleInstaByLocation = (data, hashTag, keyWord, type, location, locationI
   const nextPage = path.edge_location_to_media.page_info.has_next_page
   if (nextPage) {
     const endCursor = path.edge_location_to_media.page_info.end_cursor
-    console.log("Going AGAIN!!!")
-    console.log(hashTag, locationId, keyWord, type, location, endCursor)
     getInstaByLocation(hashTag, locationId, keyWord, type, location, endCursor)
   }
 }
@@ -110,7 +108,6 @@ const handleInstaByLocation = (data, hashTag, keyWord, type, location, locationI
 const getInstaByHash = (hashTag, keyWord, type, location, endcursor) => {
   let url
   endcursor ? url =`https://www.instagram.com/explore/tags/${hashTag}/?__a=1&max_id=${endcursor}` : url = `https://www.instagram.com/explore/tags/${hashTag}/?__a=1`
-  console.log(url)
  request
     .get(url)
     .then(result => handleInstaByHash(JSON.parse(result.text), hashTag, keyWord, type, location))
