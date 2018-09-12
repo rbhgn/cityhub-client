@@ -15,7 +15,7 @@ class MenuContainer extends PureComponent {
   render() {
     return(
       <div className="menu_container">
-      {this.props.currentUser.location && <Redirect to="/login" />}
+      {!this.props.currentUser.location && <Redirect to="/login" />}
         <div className="menu_logo">
           <img src={logo} className='logoStyle' alt=''/>
           <div className="title_container">
