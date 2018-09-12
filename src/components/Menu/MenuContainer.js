@@ -4,6 +4,7 @@ import './Menu.css'
 import { Link } from 'react-router-dom'
 import { getHostData } from '../../actions/host'
 import logo from '../../img/cityhub-logo-black.svg'
+import Redirect from 'react-router-dom/Redirect';
 
 class MenuContainer extends PureComponent {
 
@@ -14,6 +15,7 @@ class MenuContainer extends PureComponent {
   render() {
     return(
       <div className="menu_container">
+      {this.props.currentUser.location && <Redirect to="/login" />}
         <div className="menu_logo">
           <img src={logo} className='logoStyle' alt=''/>
           <div className="title_container">
