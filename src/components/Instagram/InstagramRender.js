@@ -10,7 +10,7 @@ export default class InstagramRender extends PureComponent {
 
   closePopup = () => {
     this.setState({preview: null})
-    setTimeout(() => window.scrollTo({top: this.state.yScrollPos,behavior: "instant"}), 10)  
+    setTimeout(() => window.scrollTo({top: this.state.yScrollPos,behavior: "instant"}), 5)  
   }
 
   updateInstagram = (e) => {
@@ -29,7 +29,7 @@ export default class InstagramRender extends PureComponent {
       <div className="instagram_popup_container">
         <div className="instagram_popup_media">      
           { (this.state.preview.video_url) ?
-            <video className="instagram_popup_image" autoPlay loop>
+            <video className="instagram_popup_image" autoPlay loop muted>
               <source src={this.state.preview.video_url} type="video/mp4">
               </source>
             </video>

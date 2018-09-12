@@ -23,7 +23,7 @@ const handleInstaUser = async (user, item, keyWord) => {
   }
 }
 
-const getInstaUserByHash = (item, keyWord) => {
+const getInstaUserByHash =  (item, keyWord) => {
   request
   .get(`https://www.instagram.com/p/${item.mediaShortCode}/?__a=1`)
   .then(result => handleInstaUser(JSON.parse(result.text).graphql, item, keyWord))
@@ -35,8 +35,6 @@ const handleInstaByHash = (data, hashTag, keyWord, type, location) => {
   const recentMedia = path.edge_hashtag_to_media.edges
   const topPosts = path.edge_hashtag_to_top_posts.edges
   
-
-
   topPosts.concat(recentMedia).map(m => {
     return({    
       mediaId: m.node.id,
@@ -68,7 +66,7 @@ const handleInstaByHash = (data, hashTag, keyWord, type, location) => {
   }
 }
 
-const handleInstaByLocation = (data, hashTag, keyWord, type, location, locationId) => {
+const handleInstaByLocation =  (data, hashTag, keyWord, type, location, locationId) => {
   const path = data.graphql.location
   const recentMedia = path.edge_location_to_media.edges
   const topPosts = path.edge_location_to_top_posts.edges
@@ -99,7 +97,7 @@ const handleInstaByLocation = (data, hashTag, keyWord, type, location, locationI
   const nextPage = path.edge_location_to_media.page_info.has_next_page
   if (nextPage) {
     const endCursor = path.edge_location_to_media.page_info.end_cursor
-    getInstaByLocation(hashTag, locationId, keyWord, type, location, endCursor)
+      getInstaByLocation(hashTag, locationId, keyWord, type, location, endCursor)
   }
 }
 
