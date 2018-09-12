@@ -31,7 +31,7 @@ class SocialScreenContainer extends PureComponent {
 
   getCurrentItem = (type) => {
     if (type === 'event' && this.props.events.length > 0) {
-      const randomIndex = Math.floor(Math.random() * this.props.events.length - 1)
+      const randomIndex = Math.floor(Math.random() * this.props.events.length)
       this.setState({currentItem: this.props.events[randomIndex]})
     } else if (type === 'instagram' && this.props.instagram.length > 0){
       const randomIndex = Math.floor(Math.random() * this.props.instagram.length)
