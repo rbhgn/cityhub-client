@@ -19,7 +19,7 @@ export default class MessagesForm extends PureComponent {
   render() {
     return(
       <form onSubmit={ this.handleSubmit}>
-        <input type="text" name="message" onChange={ this.handleOnChange } value={ this.state.message } placeholder="New message" className="message_input" required maxlength="70"/>
+        <input type="text" name="message" onChange={ this.handleOnChange } value={ this.state.message } placeholder="New message" className="message_input" required maxLength="70"/>
         <input type="submit" className="message_add_button" />
       </form>
     )

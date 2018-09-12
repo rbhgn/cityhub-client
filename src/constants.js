@@ -1,6 +1,6 @@
 export const localStorageJwtKey = process.env.JWT_SECRET || 'currentUserJwt'
 
-// export const baseUrl = 'http://localhost:4000'
+  // export const baseUrl = 'http://localhost:4000'
 export const baseUrl = 'https://cityhubbackend.herokuapp.com'
 
 export const defaultImages = [

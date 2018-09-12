@@ -5,7 +5,7 @@ const postItem = (item) => {
   request
       .post(`${baseUrl}/instagram`)
       .send(item)
-      .then(result => console.log(result))
+      // .then(result => console.log(result))
       .catch(err => console.log(err.status))
 }
 
@@ -34,6 +34,9 @@ const handleInstaByHash = (data, hashTag, keyWord, type, location) => {
   const path = data.graphql.hashtag
   const recentMedia = path.edge_hashtag_to_media.edges
   const topPosts = path.edge_hashtag_to_top_posts.edges
+  
+
+
   topPosts.concat(recentMedia).map(m => {
     return({    
       mediaId: m.node.id,
@@ -58,9 +61,14 @@ const handleInstaByHash = (data, hashTag, keyWord, type, location) => {
       console.log(e)
     }
   })
+  const nextPage = path.edge_hashtag_to_media.page_info.has_next_page
+  if (nextPage) {
+    const endCursor = path.edge_hashtag_to_media.page_info.end_cursor
+    getInstaByHash(hashTag, keyWord, type, location, endCursor)
+  }
 }
 
-const handleInstaByLocation = (data, hashTag, keyWord, type, location) => {
+const handleInstaByLocation = (data, hashTag, keyWord, type, location, locationId) => {
   const path = data.graphql.location
   const recentMedia = path.edge_location_to_media.edges
   const topPosts = path.edge_location_to_top_posts.edges
@@ -88,20 +96,34 @@ const handleInstaByLocation = (data, hashTag, keyWord, type, location) => {
       console.log(e)
     }
   })
+  const nextPage = path.edge_location_to_media.page_info.has_next_page
+  if (nextPage) {
+    const endCursor = path.edge_location_to_media.page_info.end_cursor
+    console.log("Going AGAIN!!!")
+    console.log(hashTag, locationId, keyWord, type, location, endCursor)
+    getInstaByLocation(hashTag, locationId, keyWord, type, location, endCursor)
+  }
 }
 
-const getInstaByHash = (hashTag, keyWord, type, location) => {
+
+
+const getInstaByHash = (hashTag, keyWord, type, location, endcursor) => {
+  let url
+  endcursor ? url =`https://www.instagram.com/explore/tags/${hashTag}/?__a=1&max_id=${endcursor}` : url = `https://www.instagram.com/explore/tags/${hashTag}/?__a=1`
+  console.log(url)
  request
-    .get(`https://www.instagram.com/explore/tags/${hashTag}/?__a=1`)
+    .get(url)
     .then(result => handleInstaByHash(JSON.parse(result.text), hashTag, keyWord, type, location))
     .catch(err => console.error(err))
 }
 
 
-const getInstaByLocation = (hashTag, locationId, keyWord, type, location) => {
+const getInstaByLocation = (hashTag, locationId, keyWord, type, location, endcursor) => {
+  let url
+  endcursor ? url =`https://www.instagram.com/explore/locations/${locationId}/?__a=1&max_id=${endcursor}` : url = `https://www.instagram.com/explore/locations/${locationId}/?__a=1`
   request
-  .get(`https://www.instagram.com/explore/locations/${locationId}/?__a=1`)
-  .then(result => handleInstaByLocation(JSON.parse(result.text), hashTag, keyWord, type, location))
+  .get(url)
+  .then(result => handleInstaByLocation(JSON.parse(result.text), hashTag, keyWord, type, location, locationId))
   .catch(err => console.log(err)) 
 }
 
