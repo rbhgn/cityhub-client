@@ -7,8 +7,8 @@ export default class SocialScreenInstaVideo extends PureComponent {
     return(
       <div className="slide_container">
         <div className="slide_left">
-          <video className="slide_image" autoPlay loop>
-            <source src={ this.props.data.video_url } type="video/mp4" muted></source>
+          <video className="slide_image" autoPlay loop muted>
+            <source src={ this.props.data.video_url } type="video/mp4" ></source>
           </video>
         </div>
         <div className="slide_right">
