@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-
+import Redirect from 'react-router-dom/Redirect';
 import { getSettings, updateSettings } from '../../actions/settings'
 import MenuContainer from '../Menu/MenuContainer';
 
@@ -23,7 +23,8 @@ class SettingsContainer extends PureComponent {
       <div>
         <MenuContainer />
         { this.props.settings.location && <SettingsForm data={ this.props.settings } handleUpdateSettings={ this.handleUpdateSettings }/> }
-    </div>
+        { this.props.settings.updated && <Redirect to='/instagram'>Instagram</Redirect> }
+   </div>
     )
   }
 }
