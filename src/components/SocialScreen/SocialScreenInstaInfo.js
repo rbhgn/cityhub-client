@@ -24,7 +24,7 @@ export class SocialScreenInstaInfo extends PureComponent {
           </div>
           <div className="slide_footer">
           <img src={instagramLogo} height="64px" alt={ this.props.data.user_name }/>
-            #cityhub<span className="greenText">{ this.props.location }</span>
+            #cityhub{ this.props.location }
           </div>   
         </div>
     )
