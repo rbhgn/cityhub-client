@@ -5,6 +5,7 @@ import { logout } from './users'
 
 export const GET_SETTINGS_SUCCESS = 'GET_SETTINGS_SUCCESS'
 export const UPDATE_SETTINGS_SUCCESS = 'UPDATE_SETTINGS_SUCCESS'
+export const UPDATE_SETTINGS_RESET = 'UPDATE_SETTINGS_RESET'
 
 const getSettingsSuccess = (data) => ({
   type: GET_SETTINGS_SUCCESS,
@@ -16,7 +17,6 @@ const updateSettingsSuccess = (data) => ({
   type: UPDATE_SETTINGS_SUCCESS,
   payload: data
 })
-
 
 export const getSettings = () => (dispatch, getState) => {
   const state = getState()

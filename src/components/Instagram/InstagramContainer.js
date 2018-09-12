@@ -5,6 +5,7 @@ import { getInstagram, updateInstagram } from '../../actions/instagram'
 import InstagramRender from './InstagramRender'
 import './Instagram.css'
 import MenuContainer from '../Menu/MenuContainer';
+import { getSettings } from '../../actions/settings'
 
 class InstagramContainer extends PureComponent {
 
@@ -18,6 +19,8 @@ class InstagramContainer extends PureComponent {
 
   componentDidMount() {
     this.props.getInstagram(this.props.location)
+    this.props.getSettings(this.props.location)
+
   }
 
   render() {
@@ -37,4 +40,4 @@ const mapStateToProps = function (state) {
   }
 }
 
-export default connect(mapStateToProps, { getNewInstaPics, getInstagram, updateInstagram })(InstagramContainer)
+export default connect(mapStateToProps, { getNewInstaPics, getInstagram, updateInstagram, getSettings })(InstagramContainer)
