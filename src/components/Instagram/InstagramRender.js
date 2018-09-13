@@ -60,7 +60,7 @@ export default class InstagramRender extends PureComponent {
           )
         })}
 
-        <button onClick={ this.loadInstagram } className="instagram_load_button">LOAD MORE IMAGES</button>
+        <button onClick={ this.loadInstagram } className="instagram_load_button">Scrape Instagram</button>
       </div>
     )
   }
