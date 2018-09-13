@@ -24,10 +24,11 @@ const handleInstaUser = async (user, item, keyWord) => {
 }
 
 const getInstaUserByHash =  (item, keyWord) => {
+  !item.text ? item.text = '' : item.text
   request
   .get(`https://www.instagram.com/p/${item.mediaShortCode}/?__a=1`)
   .then(result => handleInstaUser(JSON.parse(result.text).graphql, item, keyWord))
-  .catch(err => console.log(err)) 
+  .catch(error => console.log(error)) 
 }
 
 const handleInstaByHash = (data, hashTag, keyWord, type, location) => {

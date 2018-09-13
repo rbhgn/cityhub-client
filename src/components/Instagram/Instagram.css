@@ -36,6 +36,13 @@
   opacity: 1;
 }
 
+.instagram_image_rejected {
+  -webkit-filter: blur(4px);
+  filter: blur(4px);
+
+
+}
+
 .instagram_image:hover {
   opacity: 0.5;
 }

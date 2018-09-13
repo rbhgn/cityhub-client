@@ -76,7 +76,7 @@ class SocialScreenContainer extends PureComponent {
 
 const mapStateToProps = function (state) {
   return {
-    instagram: state.instagram,
+    instagram: state.instagram.data,
     events: state.events,
     messages: state.messages,
     host: state.host,
