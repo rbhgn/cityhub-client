@@ -14,7 +14,8 @@ export default class InstagramRender extends PureComponent {
   }
 
   updateInstagram = (e) => {
-    if (window.confirm("Are you sure you want to remove this item?")) {
+    const message = this.state.preview.status === 'accepted' ? "Are you sure you want to reject this item?" : "Are you sure you want to accept this item?"
+    if (window.confirm(message)) {
       this.props.handleUpdateInstagram(e.currentTarget.id, this.props.location)
       this.closePopup()
     }
@@ -39,7 +40,7 @@ export default class InstagramRender extends PureComponent {
         </div>
         <div className="instagram_popup_buttons">
           <button onClick={ this.closePopup } className="popup_close_button">Close</button>
-          <button onClick={ this.updateInstagram } id={ this.state.preview.id } className="popup_remove_button">{this.state.preview.status === 'accepted'? 'Remove': 'Accept'}</button>
+          <button onClick={ this.updateInstagram } id={ this.state.preview.id } className="popup_remove_button">{this.state.preview.status === 'accepted'? 'Reject': 'Accept'}</button>
         </div>
       </div> 
     )
@@ -48,6 +49,8 @@ export default class InstagramRender extends PureComponent {
   renderInstagrams = () => {
     return (
       <div className="instagram_images_container">
+            { this.props.limit === 'none' &&  <button onClick={ this.props.toggleView } className="instagram_toggle_button">Show Social Screen Images Only</button> }
+    { this.props.limit !== 'none' &&  <button  onClick={ this.props.toggleView } className="instagram_toggle_button">Show All Images</button> }
         { this.props.data && this.props.data.map((d, i) => {
           return (
             <div className="instagram_image_container" onClick={ this.openPreview} id={ d.id } key={ i }>

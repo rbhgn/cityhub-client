@@ -30,12 +30,11 @@ class InstagramContainer extends PureComponent {
     return(
       <div>
       <MenuContainer />
-{    this.props.instagram && <InstagramRender data={ this.props.instagram } handleUpdateInstagram={ this.handleUpdateInstagram }handleLoadInstagram={ this.handleLoadInstagram } location={ this.props.location } setScroll={ this.setScroll }/>}
+
+{    this.props.instagram && <InstagramRender data={ this.props.instagram } handleUpdateInstagram={ this.handleUpdateInstagram }handleLoadInstagram={ this.handleLoadInstagram } toggleView={ this.toggleView } limit={ this.props.limit }location={ this.props.location } setScroll={ this.setScroll }/>}
 
 
-    { this.props.limit === 'none' &&  <button onClick={ this.toggleView } className="instagram_load_button">Show Social Screen Images Only</button> }
 
-        { this.props.limit !== 'none' &&  <button onClick={ this.toggleView } className="instagram_load_button">Show All Images</button> }
     </div>
     )
   }

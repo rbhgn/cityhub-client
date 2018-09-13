@@ -7,8 +7,6 @@ export default function (state = {data: []}, {type, payload}) {
 			return payload
 		case UPDATE_INSTAGRAM_SUCCESS:
 		const index = state.data.findIndex(x => x.id === payload.id);
-		console.log(payload)
-		console.log(state.data[index])
 		return update(state, {data:{[index]:{$set: payload}}})
 		default:
       return state

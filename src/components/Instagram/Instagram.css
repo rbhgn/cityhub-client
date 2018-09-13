@@ -118,3 +118,20 @@
   background-color: #ffffff;
   color: #CA54BC;
 }
+
+.instagram_toggle_button {
+  font-family: 'Brown-Regular';
+  font-size: 28px;
+  padding: 8px;
+  background-color: #ffffff;
+  text-decoration: none;
+  width: 100%;
+  color: #3cbfb4;
+  border: none;
+  outline:0;
+}
+
+.instagram_toggle_button:hover {
+  background-color: #3cbfb4;
+  color: #ffffff;
+}
