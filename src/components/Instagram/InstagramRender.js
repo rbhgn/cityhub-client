@@ -21,10 +21,6 @@ export default class InstagramRender extends PureComponent {
     }
   }
 
-  loadInstagram = () => {
-    this.props.handleLoadInstagram()
-  }
-
   renderPopup = () => {
     return (
       <div className="instagram_popup_container">
@@ -59,8 +55,6 @@ export default class InstagramRender extends PureComponent {
             </div>
           )
         })}
-
-        <button onClick={ this.loadInstagram } className="instagram_load_button">Scrape Instagram</button>
       </div>
     )
   }
