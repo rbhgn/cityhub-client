@@ -7,8 +7,7 @@ import './Instagram.css'
 import MenuContainer from '../Menu/MenuContainer';
 import { getSettings } from '../../actions/settings'
 
-
-const newScrapeSessionRefreshTime = 60 //minutes
+const newScrapeSessionRefreshTime = 60  * 60//minutes
 
 class InstagramContainer extends PureComponent {
 
@@ -30,7 +29,7 @@ class InstagramContainer extends PureComponent {
         this.props.newScrapeSession()
         console.log('Scraping')
       } else {
-        console.log((newScrapeSessionRefreshTime  * 60) - diff +' seconds to Scrape')
+        console.log((newScrapeSessionRefreshTime  - diff) +' seconds to Scrape')
       }
     }
   }
@@ -38,7 +37,7 @@ class InstagramContainer extends PureComponent {
     this.props.getInstagram(this.props.location)
     this.props.getSettings(this.props.location)
     this.props.getScrapeSessions()
-    this.checkIfScrape()
+    this.props.scrapeSettings && this.checkIfScrape()
   }
 
   render() {
