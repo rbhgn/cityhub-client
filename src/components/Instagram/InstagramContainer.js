@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { getNewInstaPics } from '../../actions/scraper'
+import { newScrapeSession, getScrapeSessions } from '../../actions/scraper'
 import { getInstagram, updateInstagram, getInstagramAll } from '../../actions/instagram'
 import InstagramRender from './InstagramRender'
 import './Instagram.css'
@@ -14,7 +14,7 @@ class InstagramContainer extends PureComponent {
   }
 
   handleLoadInstagram = () => {
-    getNewInstaPics()
+    this.props.newScrapeSession()
   }
 
   toggleView = () => {
@@ -24,6 +24,7 @@ class InstagramContainer extends PureComponent {
   componentDidMount() {
     this.props.getInstagram(this.props.location)
     this.props.getSettings(this.props.location)
+    this.props.getScrapeSessions()
   }
 
   render() {
@@ -48,4 +49,4 @@ const mapStateToProps = function (state) {
   }
 }
 
-export default connect(mapStateToProps, { getNewInstaPics, getInstagram, updateInstagram, getSettings, getInstagramAll})(InstagramContainer)
+export default connect(mapStateToProps, { newScrapeSession, getScrapeSessions, getInstagram, updateInstagram, getSettings, getInstagramAll})(InstagramContainer)

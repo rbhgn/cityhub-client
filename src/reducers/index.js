@@ -6,6 +6,7 @@ import messages from './messages'
 import events from './events'
 import host from './host'
 import settings from './settings'
+import scrapeSessions from './scrapeSessions'
 
 
 export default {
@@ -16,5 +17,6 @@ export default {
   messages,
   events,
   host,
-  settings
+  settings,
+  scrapeSessions
 }

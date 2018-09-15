@@ -30,7 +30,7 @@ export default class InstagramRender extends PureComponent {
       <div className="instagram_popup_container">
         <div className="instagram_popup_media">      
           { (this.state.preview.video_url) ?
-            <video className="instagram_popup_image" autoPlay loop muted>
+            <video className="instagram_popup_image" poster={ this.state.preview.display_url } autoPlay loop muted>
               <source src={this.state.preview.video_url} type="video/mp4">
               </source>
             </video>
@@ -55,7 +55,7 @@ export default class InstagramRender extends PureComponent {
           return (
             <div className="instagram_image_container" onClick={ this.openPreview} id={ d.id } key={ i }>
               { d.media === "instagramImage" && <img src={ d.display_url } className={d.status === "declined" ? "instagram_image instagram_image_rejected" : "instagram_image"} alt={ d.full_name } />}
-              { d.media === "instagramVideo" && <video className={d.status === "declined" ? "instagram_image instagram_image_rejected" : "instagram_image"} autoPlay loop muted><source src={ d.video_url } type="video/mp4"></source></video>}
+              { d.media === "instagramVideo" && <video className={d.status === "declined" ? "instagram_image instagram_image_rejected" : "instagram_image"} poster={ d.display_url } loop muted autoPlay><source src={ d.video_url } type="video/mp4"></source></video> }
             </div>
           )
         })}
