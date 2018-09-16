@@ -29,7 +29,11 @@ class InstagramContainer extends PureComponent {
         this.props.newScrapeSession()
         console.log('Scraping')
       } else {
-        console.log((newScrapeSessionRefreshTime  - diff) +' seconds to Scrape')
+        const timeRemaining = newScrapeSessionRefreshTime  - diff
+        const hours = Math.floor(timeRemaining / 3600);
+        const minutes = Math.floor((timeRemaining % 3600)/60)
+        const seconds = timeRemaining % 60;
+        console.log( `${hours}:${minutes}:${seconds} to Scrape`)
       }
     }
   }
