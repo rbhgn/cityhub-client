@@ -7,8 +7,6 @@ import './Instagram.css'
 import MenuContainer from '../Menu/MenuContainer';
 import { getSettings } from '../../actions/settings'
 
-const newScrapeSessionRefreshTime = 60  * 60//minutes
-
 class InstagramContainer extends PureComponent {
 
   handleUpdateInstagram = (id, location) => {
@@ -19,40 +17,29 @@ class InstagramContainer extends PureComponent {
     this.props.limit === 'none' ? this.props.getInstagram(this.props.location) : this.props.getInstagramAll(this.props.location)
   }
 
-  checkIfScrape = () => {
-    const latestSession = new Date(this.props.scrapeSettings.latestSession.createdAt)
-    if (!isNaN(latestSession)) {
-      const late = (latestSession / 1) + (120 * 60 * 1000)
-      const now = new Date() / 1
-      const diff = Math.floor(((now - late)) / 1000)
-      if (diff - newScrapeSessionRefreshTime > 0) {
-        this.props.newScrapeSession()
-        console.log('Scraping')
-      } else {
-        const timeRemaining = newScrapeSessionRefreshTime  - diff
-        const hours = Math.floor(timeRemaining / 3600);
-        const minutes = Math.floor((timeRemaining % 3600)/60)
-        const seconds = timeRemaining % 60;
-        console.log( `${hours}:${minutes}:${seconds} to Scrape`)
-      }
-    }
-  }
   componentDidMount() {
+    this.props.getScrapeSessions()
     this.props.getInstagram(this.props.location)
     this.props.getSettings(this.props.location)
-    this.props.getScrapeSessions()
-    this.props.scrapeSettings && this.checkIfScrape()
+    this.props.scrapeSettings &&  setTimeout(() => this.props.scrapeSettings.scrapePermission && this.props.newScrapeSession(), 5000 ) 
   }
 
+  componentWillUnmount() {
+    this.setState({scrapingTimerOn: false})
+  }
+
+  renderScraper = () => {
+    return (
+      <div className="scraping_div">Looking for new Instagram Items</div>
+    )
+  }
   render() {
     return(
       <div>
       <MenuContainer />
 
-{    this.props.instagram && <InstagramRender data={ this.props.instagram } handleUpdateInstagram={ this.handleUpdateInstagram } toggleView={ this.toggleView } limit={ this.props.limit }location={ this.props.location } setScroll={ this.setScroll }/>}
-
-
-
+{    this.props.instagram && !this.props.scrapeSettings.scrapePermission && <InstagramRender data={ this.props.instagram } handleUpdateInstagram={ this.handleUpdateInstagram } toggleView={ this.toggleView } limit={ this.props.limit }location={ this.props.location } setScroll={ this.setScroll }/>}
+{  this.props.scrapeSettings.scrapePermission &&  this.renderScraper() }
     </div>
     )
   }

@@ -26,12 +26,12 @@ export default class InstagramRender extends PureComponent {
       <div className="instagram_popup_container">
         <div className="instagram_popup_media">      
           { (this.state.preview.video_url) ?
-            <video className="instagram_popup_image" poster={ this.state.preview.display_url } autoPlay loop muted>
-              <source src={this.state.preview.video_url} type="video/mp4">
+            <video className="instagram_popup_image" poster={ this.state.preview.display_url } autoPlay loop muted  title={`${this.state.preview.full_name}(@${this.state.preview.user_name}): ${this.state.preview.text}`}>
+              <source src={this.state.preview.video_url} type="video/mp4" >
               </source>
             </video>
           :
-            <img src={ this.state.preview.display_url } className="instagram_popup_image" alt={ this.state.preview.full_name } />  
+            <img src={ this.state.preview.display_url } className="instagram_popup_image" alt={ this.state.preview.full_name } title={`${this.state.preview.full_name}(@${this.state.preview.user_name}): ${this.state.preview.text}`}/>  
           }
         </div>
         <div className="instagram_popup_buttons">
@@ -50,8 +50,8 @@ export default class InstagramRender extends PureComponent {
         { this.props.data && this.props.data.map((d, i) => {
           return (
             <div className="instagram_image_container" onClick={ this.openPreview} id={ d.id } key={ i }>
-              { d.media === "instagramImage" && <img src={ d.display_url } className={d.status === "declined" ? "instagram_image instagram_image_rejected" : "instagram_image"} alt={ d.full_name } />}
-              { d.media === "instagramVideo" && <video className={d.status === "declined" ? "instagram_image instagram_image_rejected" : "instagram_image"} poster={ d.display_url } loop muted autoPlay><source src={ d.video_url } type="video/mp4"></source></video> }
+              { d.media === "instagramImage" && <img src={ d.display_url } className={d.status === "declined" ? "instagram_image instagram_image_rejected" : "instagram_image"} alt={ d.full_name } title={`${d.full_name}(@${d.user_name}): ${d.text}`}/>}
+              { d.media === "instagramVideo" && <video className={d.status === "declined" ? "instagram_image instagram_image_rejected" : "instagram_image"} poster={ d.display_url } loop muted autoPlay title={`${d.full_name}(@${d.user_name}): ${d.text}`}><source src={ d.video_url } type="video/mp4"></source></video> }
             </div>
           )
         })}
