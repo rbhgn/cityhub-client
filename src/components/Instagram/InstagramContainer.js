@@ -7,6 +7,7 @@ import './Instagram.css'
 import MenuContainer from '../Menu/MenuContainer';
 import { getSettings } from '../../actions/settings'
 
+
 class InstagramContainer extends PureComponent {
 
   handleUpdateInstagram = (id, location) => {

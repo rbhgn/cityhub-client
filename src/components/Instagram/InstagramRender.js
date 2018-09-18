@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import instagramLogo from '../../img/instagramLogo.png'
 
 export default class InstagramRender extends PureComponent {
   
@@ -24,9 +25,11 @@ export default class InstagramRender extends PureComponent {
   renderPopup = () => {
     return (
       <div className="instagram_popup_container">
-        <div className="instagram_popup_media">      
+      <a href={`https://www.instagram.com/p/${this.state.preview.media_short_code}`} target="blank"><img src={instagramLogo} height="64px" alt={ this.props.data.user_name }/> </a>
+        <div className="instagram_popup_media">
+             
           { (this.state.preview.video_url) ?
-            <video className="instagram_popup_image" poster={ this.state.preview.display_url } autoPlay loop muted  title={`${this.state.preview.full_name}(@${this.state.preview.user_name}): ${this.state.preview.text} Searchtype: ${this.state.preview.type}`}>
+            <video className="instagram_popup_image" poster={ this.state.preview.display_url } autoPlay loop muted  title={`${this.state.preview.full_name}(@${this.state.preview.user_name}): ${this.state.preview.text} Searchtype: ${this.state.preview.type}`}  >
               <source src={this.state.preview.video_url} type="video/mp4" >
               </source>
             </video>
