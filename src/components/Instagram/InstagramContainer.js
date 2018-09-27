@@ -9,6 +9,31 @@ import { getSettings } from '../../actions/settings'
 
 
 class InstagramContainer extends PureComponent {
+  state = {pageNumber: 1, totalPages: 1}
+
+  selectedImages = (instagramItems) => {
+    const itemsPerPage = 50;
+    const totalPages = Math.ceil(instagramItems.length / itemsPerPage)
+    const itemsStartAt = (this.state.pageNumber - 1) * itemsPerPage
+    const itemsEndAt = this.state.pageNumber * itemsPerPage
+    this.setState({totalPages})
+    return instagramItems.filter((insta, index) => (index >= itemsStartAt && index < itemsEndAt) && insta)
+  }
+
+  pageBack = () => {
+    const p = this.state.pageNumber - 1
+    this.state.pageNumber > 1 && this.setState({
+      pageNumber: p
+    })
+  }
+
+
+  pageForward = () => {
+    const p = this.state.pageNumber + 1
+    this.state.pageNumber < this.state.totalPages && this.setState({
+      pageNumber: p
+    })
+  }
 
   handleUpdateInstagram = (id, location) => {
     this.props.updateInstagram(id, location, this.props.limit)
@@ -22,7 +47,7 @@ class InstagramContainer extends PureComponent {
     this.props.getScrapeSessions()
     this.props.getInstagram(this.props.location)
     this.props.getSettings(this.props.location)
-    this.props.scrapeSettings &&  setTimeout(() => this.props.scrapeSettings.scrapePermission && this.props.newScrapeSession(), 5000 ) 
+    this.props.scrapeSettings &&  setTimeout(() => this.props.scrapeSettings.scrapePermission && this.props.newScrapeSession(), 5000 )
   }
 
   componentWillUnmount() {
@@ -39,8 +64,10 @@ class InstagramContainer extends PureComponent {
       <div>
       <MenuContainer />
 
-{    this.props.instagram && !this.props.scrapeSettings.scrapePermission && <InstagramRender data={ this.props.instagram } handleUpdateInstagram={ this.handleUpdateInstagram } toggleView={ this.toggleView } limit={ this.props.limit }location={ this.props.location } setScroll={ this.setScroll }/>}
+{    this.props.instagram && !this.props.scrapeSettings.scrapePermission && <InstagramRender data={ this.selectedImages(this.props.instagram) } handleUpdateInstagram={ this.handleUpdateInstagram } toggleView={ this.toggleView } limit={ this.props.limit }location={ this.props.location } setScroll={ this.setScroll }/>}
 {  this.props.scrapeSettings.scrapePermission &&  this.renderScraper() }
+      {this.state.pageNumber > 1 && <button onClick={this.pageBack} value="Previous Page"/>}
+      {this.state.pageNumber < this.state.totalPages && <button onClick={this.pageForward} value="Next Page" />}
     </div>
     )
   }
